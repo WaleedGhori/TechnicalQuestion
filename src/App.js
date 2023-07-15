@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
 
-function App() {
+const countries = [
+    {name:"India", value:"IN", cities:["Delhi","Mumbai"]},
+    {name:"Pakistan", value:"PK", cities:["Karachi","Lahore"]},
+    {name:"Bangladesh", value:"BG", cities:["Dhaka","Dhaka1"]},
+]
+
+const App = () => {
+    const [ country , setCountry] = useState();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <select onChange={(e)=>{
+            // console.log(e.target.value);
+            setCountry(e.target.value)
+            console.log("Country",country);
+        }}>
+            {countries.map((item , index)=>{
+                return(
+                    <option value={index}>{item.name}</option>
+                )
+            })}
+        </select>
+
+
+        {/* Second drwopDown */}
+
+       <select>
+        {
+            countries[country].cities.map((item , index)=>{
+                return(
+                    <option>{item}</option>
+                )
+            })
+        }
+       </select>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
