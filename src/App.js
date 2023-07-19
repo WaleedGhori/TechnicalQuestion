@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 
 const countries = [
     { name: "India", value: "IN", cities: ["Delhi", "Mumbai"] },
@@ -7,6 +7,9 @@ const countries = [
 ]
 
 const arr = ["Waleed", "Ahmed", "Ghori"]
+
+const options = ["Cricket" ,"Football" , "Hockey"]
+const days = ["weekday", "weekend"]
 
 const App = () => {
     const [country, setCountry] = useState();
@@ -24,6 +27,37 @@ const App = () => {
     const handleCheckBox = (value , index) =>{
         setCheckBoxValue(!value)
         setCheckBoxIndex(index)
+    }
+
+ // ? Logic of Third Question
+
+    const [game , setGame] = useState()
+    const [gameDay , setGameDay] = useState()
+
+    const handleGame = (item) =>{
+        setGame(item)
+        console.log(item);
+    }
+    const handleGameDay = (item) =>{
+        setGameDay(item)
+        console.log(item);
+    }
+    
+    
+// ? Logic of fourth Question
+
+const [color , setColor] = useState(false)
+    const handleDarkColor = () =>{
+        setColor(true)
+    }
+    const handleLightColor = () =>{
+        setColor(false)
+    }
+    const darkColor = {
+        "backgroundColor":"Black",
+    }
+    const lightColor = {
+        "backgroundColor":"White"
     }
     return (
 
@@ -57,25 +91,65 @@ const App = () => {
         // ! End of first Question 
 
         // ! Stat of Second Question
-        <div>
-            {
-                copyArr.map((item, index) => {
-                    return (
-                        <ul>
-                            <li>
-                                <input onChange={(e)=>handleCheckBox(!e.target.value, index)}
-                                    type="checkbox"
-                                     />
-                                {item}
-                                {!checkBoxValue && !checkBoxIndex?<></>:(<button onClick={() => { handldeDelete(index) }} className='p-2 bg-slate-300'>Item Deleted</button>)}
-                            </li>
-                        </ul>
-                    )
 
-                })
-            }
+        // TODO we need to fix the checkbox button
+        // <div>
+        //     {
+        //         copyArr.map((item, index) => {
+        //             return (
+        //                 <ul>
+        //                     <li>
+        //                         <input onChange={(e)=>handleCheckBox(!e.target.value, index)}
+        //                             type="checkbox"
+        //                              />
+        //                         {item}
+        //                         {!checkBoxValue && !checkBoxIndex?<></>:(<button onClick={() => { handldeDelete(index) }} className='p-2 bg-slate-300'>Item Deleted</button>)}
+        //                     </li>
+        //                 </ul>
+        //             )
+
+        //         })
+        //     }
+        // </div>
+
+        // ! End of Second Question
+
+        // ! Start of Third Question
+        // <div>
+        //     {options.map((item , index)=>{
+        //         return(
+        //             <>     
+        //             <input type="radio" name="radioBtn" value={game} onClick={()=>{handleGame(item)}}/>
+        //             <label>{item}</label>
+        //             <br></br>
+        //             </>
+        //         )
+        //     })}
+
+        //     {days.map((item , index)=>{
+        //         return(
+        //             <>     
+        //             <input type="radio" name="radioBtn1" value={gameDay} onClick={()=>{handleGameDay(item)}}/>
+        //             <label>{item}</label>
+        //             <br></br>
+        //             </>
+        //         )
+        //     })}
+
+
+        //     <h1>{game} and {gameDay}</h1>
+        // </div>
+
+        // ! End of Third Question
+
+
+
+        <div style={color==true?darkColor:lightColor}>
+            <button onClick={handleDarkColor} className='bg-gray-400 p-2 m-2 rounded-md' >Dark Mode</button>
+            <button onClick={handleLightColor} className='bg-gray-400 p-2 m-2 rounded-md' >Light Mode</button>
         </div>
     )
+
 }
 
 export default App
