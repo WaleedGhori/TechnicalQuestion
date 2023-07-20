@@ -1,4 +1,7 @@
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Products from './pages/Products';
+import ProductDetails from './pages/ProductDetails';
 
 const countries = [
     { name: "India", value: "IN", cities: ["Delhi", "Mumbai"] },
@@ -7,8 +10,7 @@ const countries = [
 ]
 
 const arr = ["Waleed", "Ahmed", "Ghori"]
-
-const options = ["Cricket" ,"Football" , "Hockey"]
+const options = ["Cricket", "Football", "Hockey"]
 const days = ["weekday", "weekend"]
 
 const App = () => {
@@ -17,6 +19,7 @@ const App = () => {
     const [checkBoxValue, setCheckBoxValue] = useState(false);
     const [checkBoxIndex, setCheckBoxIndex] = useState();
 
+
     const handldeDelete = (Itemindex) => {
         let farr = copyArr
         let filterArray = farr.filter((item, index) => {
@@ -24,43 +27,44 @@ const App = () => {
         })
         setCopyArr(filterArray)
     }
-    const handleCheckBox = (value , index) =>{
+    const handleCheckBox = (value, index) => {
         setCheckBoxValue(!value)
         setCheckBoxIndex(index)
     }
 
- // ? Logic of Third Question
+    // ? Logic of Third Question
 
-    const [game , setGame] = useState()
-    const [gameDay , setGameDay] = useState()
+    const [game, setGame] = useState()
+    const [gameDay, setGameDay] = useState()
 
-    const handleGame = (item) =>{
+    const handleGame = (item) => {
         setGame(item)
         console.log(item);
     }
-    const handleGameDay = (item) =>{
+    const handleGameDay = (item) => {
         setGameDay(item)
         console.log(item);
     }
-    
-    
-// ? Logic of fourth Question
 
-const [color , setColor] = useState(false)
-    const handleDarkColor = () =>{
+
+    // ? Logic of fourth Question
+
+    const [color, setColor] = useState(false)
+    const handleDarkColor = () => {
         setColor(true)
     }
-    const handleLightColor = () =>{
+    const handleLightColor = () => {
         setColor(false)
     }
     const darkColor = {
-        "backgroundColor":"Black",
+        "backgroundColor": "Black",
     }
     const lightColor = {
-        "backgroundColor":"White"
+        "backgroundColor": "White"
     }
     return (
 
+        // ? ********************************************************************************************************************************** //
         // ! Start of First Question
         // <div>
         //     <select onChange={(e)=>{
@@ -89,7 +93,9 @@ const [color , setColor] = useState(false)
         //    </select>
         // </div>
         // ! End of first Question 
+        // ********************************************************************************************************************************** //
 
+        // ? ********************************************************************************************************************************** //
         // ! Stat of Second Question
 
         // TODO we need to fix the checkbox button
@@ -113,7 +119,9 @@ const [color , setColor] = useState(false)
         // </div>
 
         // ! End of Second Question
+        // ********************************************************************************************************************************** //
 
+        // ? ********************************************************************************************************************************** //
         // ! Start of Third Question
         // <div>
         //     {options.map((item , index)=>{
@@ -141,12 +149,28 @@ const [color , setColor] = useState(false)
         // </div>
 
         // ! End of Third Question
+        // ********************************************************************************************************************************** //
+
+        // ? ********************************************************************************************************************************** //
+        // ! Start of Fourth Question
+        // <div style={color == true ? darkColor : lightColor}>
+        //     <button onClick={handleDarkColor} className='bg-gray-400 p-2 m-2 rounded-md' >Dark Mode</button>
+        //     <button onClick={handleLightColor} className='bg-gray-400 p-2 m-2 rounded-md' >Light Mode</button>
+        // </div>
+        // ! End of fourth Question
+        // ********************************************************************************************************************************** 
 
 
+        // ? *************************************************************************************************************************************
+        // ? *************************************************************************************************************************************
+        <div className="">
+        <BrowserRouter>
+        <Routes>
 
-        <div style={color==true?darkColor:lightColor}>
-            <button onClick={handleDarkColor} className='bg-gray-400 p-2 m-2 rounded-md' >Dark Mode</button>
-            <button onClick={handleLightColor} className='bg-gray-400 p-2 m-2 rounded-md' >Light Mode</button>
+          <Route path='/products' element={<Products/> }></Route>
+          <Route path='/products/:id' element={<ProductDetails/>}></Route>
+        </Routes>
+        </BrowserRouter>
         </div>
     )
 
