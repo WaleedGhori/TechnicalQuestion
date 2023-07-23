@@ -15,7 +15,7 @@ const Products = () => {
     }, [])
 
     return (
-        <div className='flex flex-wrap md:ml-16 mt-8 mb-9 min-h-screen '>
+        <div className='flex flex-wrap md:ml-16 0 mt-8 mb-9 min-h-screen '>
             {showProd && showProd.map((item) => {
                 return (
                     <> 
