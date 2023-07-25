@@ -1,46 +1,49 @@
-import React, { useEffect, useState } from 'react'
-import ImageGallery from 'react-image-gallery'
-import 'react-image-gallery/styles/css/image-gallery.css'
+import React, { useState, useEffect } from 'react'
+
 const News = () => {
-const [prod , setProd ] = useState()
 
-const fetchDummyProd = async() =>{
-  let response  = await fetch(`https://dummyjson.com/products`)
-  let res  = await response.json()
-  setProd(res.products)
-}
-useEffect(()=>{
-  fetchDummyProd()
-},[])
-
-return (
-  <div className='flex flex-wrap justify-center'>
-    {prod &&
-      prod.map((item) => {
-        // Prepare image objects for react-image-gallery
-        const images = item.images.map((image, index) => ({
-          original: image,
-          thumbnail: image,
-          originalAlt: `${item.title} - Image ${index + 1}`,
-          thumbnailAlt: `${item.title} - Image ${index + 1}`,
-        }));
-
+  const [prod, setProd] = useState([])
+  const [page, setPage] = useState(1)
+  // const itemPerpage = 10
+  const fetchDummyProd = async () => {
+    const response = await fetch(`https://dummyjson.com/products?limit=100`)
+    const data = await response.json();
+    setProd(data.products)
+    console.log(data);
+  }
+  useEffect(() => {
+    fetchDummyProd()
+  }, [])
+const selectPageHandler =(select) =>{
+  if (select>=1 && select<=prod.length/10 &&  select !== page)
+  setPage(select)
+} 
+  return (
+    <div className=''>
+    <div className='flex flex-wrap justify-center'>
+      {prod && prod.slice(page*10-10 , page*10).map((item) => {
         return (
-          <div className='border-2 bg-gray-100 border-gray-300 w-1/5 m-8 p-2' key={item.id}>
+          <div key={item.id} className='w-1/5 m-2 bg-slate-50 p-2 border-2 border-gray-100'>
             <h1>{item.title}</h1>
             <h2>{item.brand}</h2>
-            <h3>{item.category}</h3>
-            <h4>{item.price}</h4>
-            <h4>{item.discountPercentage}</h4>
-            {/* Use react-image-gallery to display all images */}
-            <div className="md:h-[450px] h-[220px] m-2">
-              <ImageGallery items={images} showPlayButton={false} />
-            </div>
-            <p className=''>{item.description}</p>
-          </div>
-        );
+            <h2>${item.price}</h2>
+            <h3>{item.percentage}</h3>
+            <h3>{item.discountPercentage}</h3>
+            <img src={item.thumbnail} alt={item.title} className="md:h-[250px] h-[220px]"></img>
+            <p>{item.description}</p>
+           </div>
+        )
       })}
-  </div>
-);
-    }
-export default News 
+    </div>
+    {prod.length>0 && <div className='flex justify-center p-2 mt-2'>
+      <span className='py-4 px-5 border-2 border-gray-500 cursor-pointer' onClick={()=>selectPageHandler(page-1)}>◀</span>
+      {[...Array(prod.length/10)].map((_ , index)=>{
+        return <span style={{ backgroundColor: page === index + 1 ? 'gray' : 'white' }} key={index} onClick={()=>selectPageHandler(index+1)} className='py-4 px-5 border-2 border-gray-500 cursor-pointer'>{index+1}</span>
+      })}
+      <span style={{ opacity: page < prod.length ? "" : 0 }}  className={"py-4 px-5 border-2 border-gray-500 cursor-pointer"}onClick={()=>selectPageHandler(page+1)}>▶</span>
+      </div>}
+    </div>
+  )
+}
+
+export default News
