@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Products from './pages/Products';
 import ProductDetails from './pages/ProductDetails';
 import News from './pages/News';
+import RealProd from './pages/RealProd';
 
 const countries = [
     { name: "India", value: "IN", cities: ["Delhi", "Mumbai"] },
@@ -171,6 +172,7 @@ const App = () => {
           <Route path='/products' element={<Products/> }></Route>
           <Route path='/products/:id' element={<ProductDetails/>}></Route>
           <Route path='/news' element={<News/>}></Route>
+          <Route path='/realProd' element={<RealProd/>}></Route>
         </Routes>
         </BrowserRouter>
         </div>
